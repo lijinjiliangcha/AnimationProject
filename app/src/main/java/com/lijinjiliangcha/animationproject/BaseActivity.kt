@@ -1,4 +1,4 @@
-package com.lijinjiliangcha.animationproject.activity
+package com.lijinjiliangcha.animationproject
 
 import android.content.Context
 import android.os.Bundle

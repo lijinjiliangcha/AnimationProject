@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DottedLineView">
+        <attr name="dottedLineWidth" format="dimension" />
+        <attr name="dottedLineSpace" format="dimension" />
+        <attr name="lineWidth" format="dimension"/>
+        <attr name="lineColor" format="color" />
+        <attr name="linePlace" format="enum">
+            <enum name="LT_RB" value="0" />
+            <enum name="LB_RT" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

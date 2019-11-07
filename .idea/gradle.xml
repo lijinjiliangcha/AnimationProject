@@ -9,6 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/dottedlineview" />
+            <option value="$PROJECT_DIR$/heartbeat" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

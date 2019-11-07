@@ -1,4 +1,4 @@
-package com.lijinjiliangcha.animationproject.widget
+package com.lijinjiliangcha.heartbeat
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -9,9 +9,7 @@ import android.graphics.Path
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
-import com.lijinjiliangcha.animationproject.R
 
 //心跳线
 class HeartbeatLineView : View {
