@@ -40,6 +40,8 @@ class HeartbeatLineView : View {
     private val animation: ValueAnimator by lazy { initAnimation() }
     //动画进度
     private var animProgress = 0f
+    //动画时间
+    private var duration: Long
     //动画开关 true - 开
     private var animFlag = true
 
@@ -50,7 +52,14 @@ class HeartbeatLineView : View {
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.HeartbeatLineView)
         lineColor = typeArray.getColor(R.styleable.HeartbeatLineView_lineColor, defaultColor)
         lineWidth = typeArray.getDimension(R.styleable.HeartbeatLineView_lineWidth, 4f)
+        displayRange = typeArray.getFloat(R.styleable.HeartbeatLineView_displayRange, 0.6f)
+        duration = typeArray.getInt(R.styleable.HeartbeatLineView_duration, 2000).toLong()
         typeArray.recycle()
+        //过滤错误数值
+        if (displayRange > 1)
+            displayRange = 1f
+        else if (displayRange < 0)
+            displayRange = 0f
 
         linePaint = Paint(Paint.ANTI_ALIAS_FLAG)
         linePaint.color = lineColor
@@ -65,7 +74,7 @@ class HeartbeatLineView : View {
         startOffset = -rangeSize
         //显示大小需要加上滑进部分，否则将失去滑出动画
         displaySize = w + rangeSize
-        Log.i("测试", "rangeSize = $rangeSize，startOffset = $startOffset，displaySize = $displaySize")
+//        Log.i("测试", "rangeSize = $rangeSize，startOffset = $startOffset，displaySize = $displaySize")
         //没有数据时获取默认数据
         if (pointList.size == 0)
             pointList.addAll(defaultPointList)
@@ -87,7 +96,7 @@ class HeartbeatLineView : View {
             //先裁剪后绘制
             val l = startOffset + displaySize * animProgress
             val r = l + rangeSize
-            Log.i("测试", "l = $l，r = $r")
+//            Log.i("测试", "l = $l，r = $r")
             canvas?.clipRect(l, 0f, r, height.toFloat())
             canvas?.drawPath(path!!, linePaint)
         }
@@ -97,7 +106,7 @@ class HeartbeatLineView : View {
     private val updateListener = object : ValueAnimator.AnimatorUpdateListener {
         override fun onAnimationUpdate(animation: ValueAnimator) {
             animProgress = animation.animatedValue as Float
-            Log.i("测试", "animProgress = $animProgress")
+//            Log.i("测试", "animProgress = $animProgress")
             invalidate()
         }
     }
@@ -123,20 +132,46 @@ class HeartbeatLineView : View {
         }
     }
 
+    //设置数据
+    fun setData(list: ArrayList<Point>) {
+        pointList.clear()
+        pointList.addAll(list)
+        onSizeChanged(width, height, width, height)
+        invalidate()
+    }
+
+    //开启动画
     fun start() {
         animFlag = true
         animation.start()
     }
 
+    //结束动画
     fun end() {
         animFlag = false
         animation.cancel()
     }
 
+    //设置动画时间
+    fun setDuration(time: Long) {
+        animation.setDuration(time)
+    }
+
+    /**
+     * 设置显示范围，即是线条可见长度
+     * @param range 0-1，总长度的百分比
+     */
+    fun setDisplayRange(range: Float) {
+        if (range < 0 || range > 1)
+            return
+        this.displayRange = range
+        onSizeChanged(width, height, width, height)
+    }
+
     private fun initAnimation(): ValueAnimator {
         val animator = ValueAnimator.ofFloat(0f, 1f)
         animator.addUpdateListener(updateListener)
-        animator.setDuration(2000)
+        animator.setDuration(duration)
         animator.interpolator = LinearInterpolator()
 //        animator.repeatMode = ValueAnimator.RESTART
 //        animator.repeatCount = Int.MAX_VALUE

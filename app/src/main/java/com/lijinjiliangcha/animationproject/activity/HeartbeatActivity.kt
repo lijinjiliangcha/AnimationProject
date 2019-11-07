@@ -2,6 +2,7 @@ package com.lijinjiliangcha.animationproject.activity
 
 import android.os.Bundle
 import com.lijinjiliangcha.animationproject.R
+import com.lijinjiliangcha.animationproject.widget.HeartbeatLineView
 import kotlinx.android.synthetic.main.activity_heartbeat.*
 
 //心跳
@@ -12,11 +13,16 @@ class HeartbeatActivity : BaseActivity() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
-        heartView.start()
+        heartLineView.start()
+
+        btn.setOnClickListener {
+//            heartLineView.setDuration(10000)
+            heartLineView.setDisplayRange(0.3f)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        heartView.end()
+        heartLineView.end()
     }
 }

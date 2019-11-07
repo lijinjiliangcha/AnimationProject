@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="HeartbeatView">
+        <attr name="android:src" />
+        <attr name="srcSize" format="dimension" />
+        <attr name="backgroundCode" format="color" />
+        <attr name="backgroundSize" format="dimension" />
+    </declare-styleable>
+
     <declare-styleable name="HeartbeatLineView">
         <attr name="lineColor" format="color" />
         <attr name="lineWidth" format="dimension" />
+        <attr name="duration" format="integer" />
+        <attr name="displayRange" format="float" />
     </declare-styleable>
 
 </resources>
