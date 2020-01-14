@@ -1,6 +1,8 @@
-package com.lijinjiliangcha.animationproject
+package com.lijinjiliangcha.animationproject.activity
 
 import android.os.Bundle
+import com.lijinjiliangcha.animationproject.R
+import com.lijinjiliangcha.animationproject.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_heartbeat.*
 
 //心跳
